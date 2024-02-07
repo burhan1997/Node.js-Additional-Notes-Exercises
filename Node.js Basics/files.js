@@ -3,25 +3,25 @@ const fs = require('fs');
 
 
 //reading files
-// fs.readFile('./docs/blog1.txt', (err, data) => {
-//   if (err) {
-//   console.log(err);
-//   }
+fs.readFile('./docs/blog1.txt', (err, data) => {
+  if (err) {
+  console.log(err);
+  }
   // if i console.log(data) here, i will get <Buffer 68 65 6c 6c 6f 2c 20 6e 69 6e 6a 61 73> in my console. so a buffer is basically just a package of data that's been sent to us when we read this file.  but for now if we want to see the actual string data this in text format we can just use the to string method on this data and it will turn the buffer into a string so we can read it.
 //   console.log(data.toString());
-// });
+});
  
-// console.log('last line');
+console.log('last line');
 
 
 //writing files
-// fs.writeFile('./docs/blog1.txt', 'hello, world', () => {
-//   console.log('file was written');
-// });
+fs.writeFile('./docs/blog1.txt', 'hello, world', () => {
+  console.log('file was written');
+});
 
-// fs.writeFile('./docs/blog2.txt', 'hello, again', () => {
-//   console.log('file was written');
-// });
+fs.writeFile('./docs/blog2.txt', 'hello, again', () => {
+  console.log('file was written');
+});
 
 
 
