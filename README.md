@@ -110,6 +110,122 @@ When a request is received by the server, it triggers a callback function. This 
 
 To run a Node.js server, developers execute the server file using the Node.js runtime environment. The terminal displays messages indicating the server's status, such as "listening for requests on port 3000."
 
-## Next Steps
+# Requests & Responses
 
-Further exploration is needed to understand how to send responses back to the browser effectively. Subsequent lessons or sections will cover this topic in detail.
+### Setting up a Server:
+
+- The process starts with creating a server using Node.js, which listens for incoming HTTP requests on a specified port (in this case, port 3000).
+- The server is configured to respond to requests made to localhost:3000.
+
+```javascript
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    res.end('Server is running!');
+});
+
+server.listen(3000, () => {
+    console.log('Server is listening on port 3000');
+});
+```
+
+### Handling Requests:
+
+- Requests made to the server trigger a designated function.
+- Initially, the server responds with a simple text message ("request made").
+- Later, the server is modified to log information about the request object, including its URL and method (e.g., GET, POST).
+
+### Sending Responses:
+
+- The response sent from the server can include various types of data, such as plain text or HTML.
+- Initially, the server sends plain text responses like "hello ninjas" and "hello again ninjas."
+- Later, the server is modified to send HTML responses, which are constructed dynamically or read from separate HTML files.
+
+```javascript
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello, ninjas!');
+});
+
+server.listen(3000, () => {
+    console.log('Server is listening on port 3000');
+});
+
+```
+
+### Routing Requests:
+
+- Routing is introduced to handle different URLs by serving different HTML content.
+- A switch statement is used to determine the requested URL and respond accordingly:
+- If the URL is "/", the server responds with the index page.
+- If the URL is "/about", the server responds with the about page.
+- If the URL does not match any defined routes, the server responds with a 404 error page.
+
+```javascript
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    if (req.url === '/') {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end('<h1>Welcome to the homepage!</h1>');
+    } else if (req.url === '/about') {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end('<h1>About Us</h1><p>This is the about page</p>');
+    } else {
+        res.writeHead(404, { 'Content-Type': 'text/html' });
+        res.end('<h1>404 Not Found</h1><p>The requested URL was not found on this server.</p>');
+    }
+});
+
+server.listen(3000, () => {
+    console.log('Server is listening on port 3000');
+});
+
+```
+
+### Setting Status Codes:
+
+- HTTP status codes are used to indicate the outcome of a request.
+- Different status codes convey different meanings, such as success (200), redirection (301), or client/server errors (404, 500).
+- The server is updated to set appropriate status codes for different responses, such as 200 for successful responses and 404 for not found errors.
+
+```javascript
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    res.writeHead(404, { 'Content-Type': 'text/html' });
+    res.end('<h1>404 Not Found</h1><p>The requested URL was not found on this server.</p>');
+});
+
+server.listen(3000, () => {
+    console.log('Server is listening on port 3000');
+});
+
+```
+
+### Implementing Redirects:
+
+- Redirects are used to automatically forward users from one URL to another.
+- For example, old URLs can be redirected to new URLs to maintain backward compatibility.
+- The server can be configured to detect specific URLs and redirect users to alternative URLs using the appropriate HTTP status code (e.g., 301 for permanent redirects).
+
+```javascript
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    if (req.url === '/old-url') {
+        res.writeHead(301, { 'Location': '/new-url' });
+        res.end();
+    } else {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end('<h1>Welcome to the homepage!</h1>');
+    }
+});
+
+server.listen(3000, () => {
+    console.log('Server is listening on port 3000');
+});
+
+```
